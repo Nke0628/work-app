@@ -1,0 +1,38 @@
+.l-header {
+    width: 100%;
+    height: 5rem;
+    line-height: 5rem;
+    background: $blue;
+
+    a{
+        color: $white;
+    }
+}
+
+.p-header {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.p-header__logo {
+    font-size: 2rem;
+
+}
+
+.p-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.p-nav__item:not(:last-child) {
+    margin-right:2rem;
+}
+
+
+
+
+
+

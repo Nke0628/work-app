@@ -178,6 +178,9 @@ select {
   vertical-align: middle;
 }
 
+/* レスポンシブ
+   ----------------------------------------------------------------- */
+
 /* フォント
    ----------------------------------------------------------------- */
 
@@ -210,9 +213,59 @@ body {
 /* 個別スタイル
    ----------------------------------------------------------------- */
 
+a {
+  color: #333;
+}
+
 img {
   max-width: 100%;
   height: auto;
   vertical-align: middle;
+}
+
+.l-header {
+  width: 100%;
+  height: 5rem;
+  line-height: 5rem;
+  background: #00A1E9;
+}
+
+.l-header a {
+  color: #FFFFFF;
+}
+
+.p-header {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.p-header__logo {
+  font-size: 2rem;
+}
+
+.p-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.p-nav__item:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.l-main-container {
+  width: 80%;
+  background: #FFFFFF;
+  margin: 0 auto;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .l-main-container {
+    width: 100%;
+  }
 }
 

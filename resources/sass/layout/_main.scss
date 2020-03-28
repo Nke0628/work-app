@@ -1,0 +1,13 @@
+.l-main {
+}
+
+.l-main-container {
+    width: 80%;
+    background: $white;
+    margin: 0 auto;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    @include mq() {
+        width: 100%;
+    }
+}
