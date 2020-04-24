@@ -15,3 +15,9 @@
  * トップページ
  */
 Route::get('/', 'IndexController@index');
+
+/** 勤怠区分マスタ */
+Route::get('/master/work_division', 'Master\WorkDivision\WorkDivisionController@showList');
+Route::post('/master/work_division/ajax/submit', 'Master\WorkDivision\WorkDivisionController@registerWorkDivision');
+Route::post('/master/work_division/ajax/resubmit', 'Master\WorkDivision\WorkDivisionController@updateWorkDivision');
+Route::post('/master/work_division/ajax/delete', 'Master\WorkDivision\WorkDivisionController@deleteWorkDivision');

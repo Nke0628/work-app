@@ -1,0 +1,20 @@
+.c-button{
+    padding: .5rem 1.5rem;
+    background: $grey;
+    border-radius: .5rem;
+    font-size: 1.2rem;
+    color: $black;
+    font-weight: bold;
+}
+
+.c-button--blue{
+    @extend .c-button;
+    background: $blue;
+    color: $white;
+}
+
+.c-button--red{
+    @extend .c-button;
+    background: $red;
+    color: $white;
+}

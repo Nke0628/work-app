@@ -1,0 +1,78 @@
+.p-work-division-header{
+    margin-bottom: 15px;
+}
+
+.p-work-division-menu__item{
+    display: inline-block;
+    margin-bottom: 1.5em;
+}
+
+/** リスト一覧 */
+.p-work-division-list{
+
+    .p-work-division-list__table{
+        width: 90%;
+        border-collapse: collapse;
+    }
+
+    .p-work-division-list__table th,td{
+        padding: 5px 15px;
+        border: 1px solid #dcdcdc;
+    }
+
+    .p-work-division-list__table th{
+        background: #00a1e9;
+        color: white;
+    }
+
+    .p-work-division-list__table th:nth-child(n+2) {
+        cursor: pointer;
+        position: relative;
+    }
+
+    .p-work-division-list__table th::before, .p-work-division-list__table th::after {
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        border: 5px solid transparent;
+        right: 10px;
+        top: 50%;
+    }
+
+    .p-work-division-list__table th::before {
+        border-bottom-color: white;
+        margin-top: -10px;
+    }
+    .p-work-division-list__table th::after {
+        border-top-color: white;
+        margin-top: 2px;
+    }
+}
+
+/** モーダル */
+.p-work-division-modal{
+
+    .p-work-division-modal__title{
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .p-work-division-input-group{
+        margin-bottom: 1rem;
+
+        .p-work-division-input-group__label{
+            font-size: 1.3rem;
+        }
+
+        .p-work-division-input-group__input{
+            min-width: 20rem;
+            height: 1.6rem;
+        }
+    }
+
+    .p-work-division-modal-button-group{
+        text-align: right;
+    }
+}
+

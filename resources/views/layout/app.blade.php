@@ -30,12 +30,14 @@
         </div>
     </header>
     <main class="l-main">
+        <div class="c-session-message _js_session_message">
+            <div class="c-alert">t</div>
+        </div>
         <div class="l-main-container">
             @yield('content')
         </div>
     </main>
     <footer>
     </footer>
-</div>
 </body>
 </html>

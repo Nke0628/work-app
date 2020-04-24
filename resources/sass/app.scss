@@ -26,10 +26,14 @@
 // -----------------------------------------------------------------
 
 @import 'object/component/_btn';
+@import 'object/component/_spinner';
+@import 'object/component/_modal';
+@import 'object/component/session_message';
 
 // -----------------------------------------------------------------
 // Project
 // -----------------------------------------------------------------
+@import 'object/project/_work_division';
 
 // -----------------------------------------------------------------
 // Utility

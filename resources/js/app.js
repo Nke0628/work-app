@@ -6,5 +6,6 @@
  */
 
 require('./bootstrap');
+require('./common/common_lib');
 require('./master/category_lib');
 

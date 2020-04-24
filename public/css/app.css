@@ -178,6 +178,17 @@ select {
   vertical-align: middle;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
 /* レスポンシブ
    ----------------------------------------------------------------- */
 
@@ -199,6 +210,12 @@ body {
 
 html {
   font-size: 62.5%;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
 }
 
 body {
@@ -267,5 +284,203 @@ img {
   .l-main-container {
     width: 100%;
   }
+}
+
+.c-button,
+.c-button--red,
+.c-button--blue {
+  padding: 0.5rem 1.5rem;
+  background: #EEEEEE;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.c-button--blue {
+  background: #00A1E9;
+  color: #FFFFFF;
+}
+
+.c-button--red {
+  background: #e9606d;
+  color: #FFFFFF;
+}
+
+.c-spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.c-spinner-overlay .c-spinner-cover {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-spinner-overlay .c-spinner-cover .c-spinner {
+  width: 80px;
+  height: 80px;
+  border: 4px #ddd solid;
+  border-top: 4px #999 solid;
+  border-radius: 50%;
+  -webkit-animation: sp-anime 0.8s infinite linear;
+          animation: sp-anime 0.8s infinite linear;
+}
+
+@-webkit-keyframes sp-anime {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes sp-anime {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+.c-modal {
+  display: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.c-modal .c-modal__bg {
+  background: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+}
+
+.c-modal .c-modal__content {
+  background: #fff;
+  left: 50%;
+  padding: 30px;
+  position: absolute;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  min-width: 40%;
+}
+
+@media screen and (max-width: 768px) {
+  .c-modal .c-modal__content {
+    min-width: 80%;
+  }
+}
+
+.c-session-message {
+  margin-top: 1.5em;
+  display: none;
+}
+
+.c-session-message .c-alert {
+  margin: 0 auto;
+  padding: 0.5em 1.5em;
+  background: #EEEEEE;
+  border-radius: 0.5em;
+  width: 80%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .c-session-message .c-alert {
+    width: 100%;
+  }
+}
+
+.p-work-division-header {
+  margin-bottom: 15px;
+}
+
+.p-work-division-menu__item {
+  display: inline-block;
+  margin-bottom: 1.5em;
+}
+
+/** リスト一覧 */
+
+.p-work-division-list .p-work-division-list__table {
+  width: 90%;
+  border-collapse: collapse;
+}
+
+.p-work-division-list .p-work-division-list__table th,
+.p-work-division-list td {
+  padding: 5px 15px;
+  border: 1px solid #dcdcdc;
+}
+
+.p-work-division-list .p-work-division-list__table th {
+  background: #00a1e9;
+  color: white;
+}
+
+.p-work-division-list .p-work-division-list__table th:nth-child(n+2) {
+  cursor: pointer;
+  position: relative;
+}
+
+.p-work-division-list .p-work-division-list__table th::before,
+.p-work-division-list .p-work-division-list__table th::after {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  border: 5px solid transparent;
+  right: 10px;
+  top: 50%;
+}
+
+.p-work-division-list .p-work-division-list__table th::before {
+  border-bottom-color: white;
+  margin-top: -10px;
+}
+
+.p-work-division-list .p-work-division-list__table th::after {
+  border-top-color: white;
+  margin-top: 2px;
+}
+
+/** モーダル */
+
+.p-work-division-modal .p-work-division-modal__title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.p-work-division-modal .p-work-division-input-group {
+  margin-bottom: 1rem;
+}
+
+.p-work-division-modal .p-work-division-input-group .p-work-division-input-group__label {
+  font-size: 1.3rem;
+}
+
+.p-work-division-modal .p-work-division-input-group .p-work-division-input-group__input {
+  min-width: 20rem;
+  height: 1.6rem;
+}
+
+.p-work-division-modal .p-work-division-modal-button-group {
+  text-align: right;
 }
 
