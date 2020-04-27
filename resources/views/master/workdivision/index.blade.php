@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.main_content')
 
 @section('content')
     <div class="p-work-division">

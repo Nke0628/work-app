@@ -1,13 +1,17 @@
 .l-main {
-}
+    display: flex;
 
-.l-main-container {
-    width: 80%;
-    background: $white;
-    margin: 0 auto;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    @include mq() {
-        width: 100%;
+    .l-main-menu{
+        width: 15%;
+    }
+
+    .l-main-content {
+        flex: 1;
+        padding: 3rem 0 0 3rem;
+        background: $white;
+        height: 100vh;
+        @include mq() {
+            width: 100%;
+        }
     }
 }

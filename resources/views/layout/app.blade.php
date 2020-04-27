@@ -17,27 +17,6 @@
 
 </head>
 <body>
-    <header class="l-header">
-        <div class="p-header">
-            <div class="p-header__logo"><a href="">TITLE</a></div>
-            <nav class="p-header__nav">
-                <ul class="p-nav">
-                    <li class="p-nav__item"><a href="">test</a></li>
-                    <li class="p-nav__item"><a href="">test</a></li>
-                    <li class="p-nav__item"><a href="">test</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main class="l-main">
-        <div class="c-session-message _js_session_message">
-            <div class="c-alert">t</div>
-        </div>
-        <div class="l-main-container">
-            @yield('content')
-        </div>
-    </main>
-    <footer>
-    </footer>
+@yield('content')
 </body>
 </html>

@@ -13,6 +13,7 @@
     .p-work-division-list__table{
         width: 90%;
         border-collapse: collapse;
+        font-size: 1.2rem;
     }
 
     .p-work-division-list__table th,td{
@@ -21,7 +22,7 @@
     }
 
     .p-work-division-list__table th{
-        background: #00a1e9;
+        background: $blue;
         color: white;
     }
 
