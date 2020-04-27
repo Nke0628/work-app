@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+
+hide circle
+hide methods
+
+package 勤怠管理{
+class ユーザ-情報
+class スタッフ
+class 組織
+class 勤怠
+class 勤怠履歴
+class 勤怠設定
+mix_actor ユーザ
+
+ユーザ情報 : ID
+ユーザ情報 : 名前
+ユーザ情報 : メールアドレス
+ユーザ情報 : パスワード
+ユーザ情報 : 管理者フラグ
+
+勤怠 : ユーザID
+
+ユーザ -> ユーザ情報 : has-one
+
+}
+@enduml

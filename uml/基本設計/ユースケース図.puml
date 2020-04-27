@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+
+actor :ユーザ: as user
+actor :スタッフ: as staff
+actor :システム管理者: as system
+
+package "勤怠システム"{
+
+    (入会する) as singUp
+
+    (singUp)-.>(退会する):<<precedes>>
+    (singUp)-.>(ログインする):<<precedes>>
+    (勤怠区分を登録する)<.-(管理者ログインする):<<precedes>>
+    user--(singUp)
+    user--(ログインする)
+    staff--(ログインする)
+    (勤怠区分を登録する)--system
+
+    package "ユーザ画面"{
+        (ログインする)--(組織を登録する):<<precedes>>
+        (ログインする)--(組織を削除する):<<precedes>>
+        (ログインする)--(組織を編集する):<<precedes>>
+        (ログインする)--(スタッフを登録する):<<precedes>>
+        (ログインする)--(スタッフを編集する):<<precedes>>
+        (ログインする)--(スタッフを削除する):<<precedes>>
+
+        package "スタッフ画面"{
+            (出勤する)-->(退勤する):<<precedes>>
+            (勤怠一覧を表示する)-.>(打刻修正する):<<extends>>
+            (勤怠一覧を表示する)-.>(打刻削除する):<<extends>>
+            (勤怠一覧を表示する)-.>(勤怠一覧を出力する):<<extends>>
+            (ログインする)--(出勤する):<<precedes>>
+            (ログインする)--(勤怠一覧を表示する):<<precedes>>
+            (ログインする)--(勤怠情報を設定する):<<precedes>>
+            (ログインする)--(ログアウトする):<<precedes>>
+        }
+    }
+}
+@enduml

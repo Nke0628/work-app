@@ -1,0 +1,68 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "ユーザ" as user {
+  +id : int(10)
+  --
+  name : varchar(255)
+  *email : varchar(255)
+  email_verified_at : timestamp
+  password : varchar(255)
+  remember_token : varchar(100)
+  admin_flag : int
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "勤怠" as attendance {
+  +id : int
+  --
+  #user_id : int [FK(user,id)]
+  *work_date : DATE
+  *work_division_id : int <<FK>>
+  attendance_time : DATETIME
+  departure_time : DATETIME
+  break_time : TIME
+  work_time : TIME
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "勤怠区分" as work_division {
+  +id : int
+  --
+  division_name : varchar(255)
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "スタッフ" as staff {
+  *id : int
+  --
+  name : varchar(255)
+  email : varchar(255)
+  password : varchar(255)
+  admin_flag : int
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "組織" as departmetn {
+  *id : int
+  --
+  user_id : int <<FK>>
+  name : varchar(255)
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "組織-スタッフ" as departmetn_staff {
+  *id : int
+  --
+  department_id : int <<FK>>
+  staff_id : int <<FK>>
+  created_at : timestamp
+  updated_at : timestamp
+}
+@enduml
