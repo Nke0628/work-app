@@ -29,11 +29,14 @@
 @import 'object/component/_spinner';
 @import 'object/component/_modal';
 @import 'object/component/session_message';
+@import 'object/component/_horizon';
+@import 'object/component/_alert';
 
 // -----------------------------------------------------------------
 // Project
 // -----------------------------------------------------------------
 @import 'object/project/_work_division';
+@import 'object/project/auth/_register';
 
 // -----------------------------------------------------------------
 // Utility
