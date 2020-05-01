@@ -46,11 +46,7 @@ class WorkDivisionRepository implements WorkDivisionInterface
         {
             foreach ( $aWorkDivisions as $aWorkDivision )
             {
-                $aWorkDivisionList->add( new WorkDivision(
-                    WorkDivisionId::of( $aWorkDivision->id ),
-                    WorkDivisionName::of( $aWorkDivision->division_name ),
-                    new Carbon( $aWorkDivision->updated_at )
-                ));
+                $aWorkDivisionList->add( $aWorkDivision->toEntity() );
             }
         }
         return $aWorkDivisionList;
