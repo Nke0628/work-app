@@ -21,6 +21,8 @@ Route::get('/', 'IndexController@index');
  */
 Route::get('/signup', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/signup', 'Auth\RegisterController@register');
+Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::post('/login', 'Auth\LoginController@login');
 
 /**
  * 勤怠区分

@@ -36,4 +36,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * ログイン成功時のリダイレクトパス
+     *
+     * @return string
+     */
+    protected function redirectPath():string
+    {
+        return '/';
+    }
 }
