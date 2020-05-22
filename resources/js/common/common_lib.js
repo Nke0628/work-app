@@ -24,6 +24,7 @@ Common_Lib.prototype = {
     {
         this._SetSpinner();
         this._SetModalEvent();
+        this._SetMultiOpenBootStrapModalConfig()
     },
 
     /**
@@ -65,6 +66,46 @@ Common_Lib.prototype = {
     //         aMsgObj.fadeOut(100);
     //     },3000);
     // },
+
+    /**
+     * BootStrapModal初期設定
+     */
+    _SetMultiOpenBootStrapModalConfig : function()
+    {
+        /* モーダル多重表示時に交互に重なるようz-index値調整 */
+        $(document).on('show.bs.modal', '.modal', function () {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+
+        /* 親モーダルを閉じた際に子モーダルがスクロール不可になる問題を解決 */
+        $(document).on('hidden.bs.modal', '.modal', function () {
+            $('.modal:visible').length && $(document.body).addClass('modal-open');
+        });
+    },
+
+    /**
+     * BootStrapModal表示
+     *
+     * @param pElementId id要素名
+     */
+    OpenModal : function( pElementId )
+    {
+        $( pElementId ).modal( 'show' );
+    },
+
+    /**
+     * BootStrapModal非表示
+     *
+     * @param pElementId id要素名
+     */
+    HideModal : function( pElementId )
+    {
+        $( pElementId ).modal( 'hide' );
+    },
 
     /**
      * モーダルイベント設定
