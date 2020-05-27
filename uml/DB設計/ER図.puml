@@ -75,9 +75,20 @@ entity "組織" as department {
   updated_at : timestamp
 }
 
+entity "権限" as role {
+  +id : int
+  --
+  description : varchar(255)
+  create_user_id : int
+  created_at : timestamp
+  update_user_id : int
+  updated_at : timestamp
+}
+
 user||--o{attendance
 user||--||staff
 user||--|{department
+user }o--||role
 department||--o{staff
 department||--||attendance_propaty
 work_division||--o{attendance
