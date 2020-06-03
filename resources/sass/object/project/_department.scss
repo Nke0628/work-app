@@ -1,0 +1,35 @@
+.p-register-department{
+
+    .p-register-department-header{
+        margin-bottom: 1.5rem;
+    }
+
+    .p-register-department-header__title{
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    .p-register-department-form{
+        .p-register-department-form-input-group{
+           margin-bottom: 1.5rem;
+        }
+
+        .p-register-department-form-input-group__label{
+            width: 15%;
+            font-weight: bold;
+        }
+
+        .p-register-department-form-input-group__input{
+            width: 30%;
+            border: 1px solid $darkgrey;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.4rem;
+            box-shadow: 0 1px 1px rgba(0,0,0,.075) inset;
+        }
+
+        .p-register-department-form__button{
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+        }
+    }
+}

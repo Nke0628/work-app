@@ -1,0 +1,27 @@
+@startuml
+'Direction of diagram flow can be selected.
+left to right direction
+
+usecase 組織を登録する
+
+actor ユーザ
+boundary 組織登録画面
+control 組織情報設定入力
+control 入力データ不正
+entity 組織登録
+entity 勤怠設定登録
+entity 自身をスタッフ登録
+control 組織一覧を取得
+boundary 組織一覧画面
+
+ユーザ -> 組織登録画面 : アクセス
+組織登録画面 -> 組織情報設定入力
+組織情報設定入力 --> 入力データ不正
+入力データ不正 -> 組織登録画面
+組織情報設定入力 -> 組織登録
+組織登録 -> 勤怠設定登録
+勤怠設定登録 -> 自身をスタッフ登録
+自身をスタッフ登録 -> 組織一覧を取得
+組織一覧を取得 --> 組織一覧
+組織一覧を取得 -> 組織一覧画面
+@enduml

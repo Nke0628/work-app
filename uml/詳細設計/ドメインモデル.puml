@@ -1,27 +1,43 @@
 @startuml
-left to right direction
-
 hide circle
 hide methods
 
 package 勤怠管理{
-class ユーザ-情報
-class スタッフ
-class 組織
-class 勤怠
-class 勤怠履歴
-class 勤怠設定
-mix_actor ユーザ
 
-ユーザ情報 : ID
-ユーザ情報 : 名前
-ユーザ情報 : メールアドレス
-ユーザ情報 : パスワード
-ユーザ情報 : 管理者フラグ
+    rectangle 組織集約{
+        class 組織
+        class 勤怠設定
+        note right : 組織は必ず一つの勤怠設定を持つ
+        組織 *-- 勤怠設定
+        組織 : ID
+        組織 : ユーザID
+        組織 : 名称
+        勤怠設定 : ID
+        勤怠設定 : 組織ID
+        勤怠設定 : 勤怠開始時間
+        勤怠設定 : 勤怠終了時間
+        勤怠設定 : 休憩開始時間
+        勤怠設定 : 休憩終了時間
+    }
 
-勤怠 : ユーザID
+    rectangle スタッフ集約{
+        class スタッフ
+        スタッフ : ID
+        スタッフ : ユーザID
+        スタッフ : 組織ID
+    }
 
-ユーザ -> ユーザ情報 : has-one
+    rectangle ユーザ集約{
+        class ユーザ
+        ユーザ : id
+        ユーザ : 名前
+        ユーザ : メールアドレス
+        ユーザ : パスワード
+        ユーザ : 管理者フラグ
+    }
+
+    スタッフ -> ユーザ
+    スタッフ <- 組織集約 : 0..n
 
 }
 @enduml

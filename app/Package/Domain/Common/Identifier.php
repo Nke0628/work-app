@@ -4,26 +4,22 @@ namespace App\Package\Domain\Common;
 
 class Identifier
 {
-    /** @var int */
+    /** @var string */
     protected $value;
 
     /**
      * Identifier constructor.
-     * @param int $value
+     * @param string $value
      */
-    private function __construct(int $value)
+    private function __construct(string $value)
     {
-        if ( !is_numeric($value) )
-        {
-            throw new \InvalidArgumentException('IDの内容に誤りがあります。' . $value);
-        }
         $this->value = $value;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getValue(): int
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -38,10 +34,10 @@ class Identifier
     }
 
     /**
-     * @param int $value
+     * @param string $value
      * @return $this
      */
-    public static function of(int $value): self
+    public static function of(string $value): self
     {
         return new static($value);
     }

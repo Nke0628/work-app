@@ -24,7 +24,13 @@ Common_Lib.prototype = {
     {
         this._SetSpinner();
         this._SetModalEvent();
-        this._SetMultiOpenBootStrapModalConfig()
+        this._SetMultiOpenBootStrapModalConfig();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('.dropdwn li').click(function() {
+            $("ul:not(:animated)", this).slideToggle();
+        });
     },
 
     /**

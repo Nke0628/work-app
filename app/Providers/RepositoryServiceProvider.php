@@ -17,6 +17,16 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Package\Domain\Repository\WorkDivisionInterface::class,
             \App\Package\Infrastructure\Eloquent\WorkDivisionRepository::class
         );
+
+        $this->app->bind(
+            \App\Package\Domain\Repository\DepartmentInterface::class,
+            \App\Package\Infrastructure\Eloquent\DepartmentRepository::class
+        );
+
+        $this->app->bind(
+            \App\Package\Domain\Repository\StaffRepositoryInterface::class,
+            \App\Package\Infrastructure\Eloquent\StaffRepository::class
+        );
     }
 
     /**

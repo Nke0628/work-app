@@ -6,6 +6,9 @@
 // Foundation
 // ==========================================================================
 @import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
 @import 'foundation/_reset';
 @import 'foundation/_variables';
 @import 'foundation/_media';
@@ -36,6 +39,7 @@
 // -----------------------------------------------------------------
 // Project
 // -----------------------------------------------------------------
+@import 'object/project/_department';
 @import 'object/project/_work_division';
 @import 'object/project/auth/_register';
 @import 'object/project/auth/_login';

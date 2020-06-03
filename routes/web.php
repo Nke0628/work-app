@@ -21,8 +21,18 @@ Route::get('/', 'IndexController@index');
  */
 Route::get('/signup', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/signup', 'Auth\RegisterController@register');
-Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
+
+/**
+ * 組織設定
+ */
+
+Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+    Route::get('/department', 'Department\DepartmentController@showDepartments');
+    Route::get('/department/register', 'Department\DepartmentController@showRegisterDepartmentForm');
+    Route::post('/department/register', 'Department\DepartmentController@registerDepartment');
+});
 
 /**
  * 勤怠区分

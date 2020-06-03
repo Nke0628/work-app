@@ -3,15 +3,28 @@
 
     .l-main-menu{
         width: 15%;
+        @include mq() {
+            width: 0;
+        }
     }
 
     .l-main-content {
         flex: 1;
-        padding: 3rem 0 0 3rem;
+        padding: 3rem;
         background: $white;
+        overflow-y: scroll;
         height: 100vh;
         @include mq() {
             width: 100%;
         }
+    }
+
+    .dropdwn{
+        width: 100%;
+    }
+
+    ul{
+        text-align: center;
+        list-style-type: none;
     }
 }

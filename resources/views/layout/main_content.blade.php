@@ -19,18 +19,33 @@
 <body>
     <header class="l-header">
         <div class="p-header">
-            <div class="p-header__logo"><a href="">TITLE</a></div>
+            <div class="p-header__logo"><a href="">WorkClock</a></div>
             <nav class="p-header__nav">
                 <ul class="p-nav">
-                    <li class="p-nav__item"><a href="">test</a></li>
-                    <li class="p-nav__item"><a href="">test</a></li>
+                    <li class="p-nav__item"><a href="">ログイン</a></li>
+                    <li class="p-nav__item"><a href="">新規登録</a></li>
                     <li class="p-nav__item"><a href="">test</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main class="l-main">
-        <div class="l-main-menu"></div>
+        <div class="l-main-menu">
+            <ul class="dropdwn" style="background: steelblue; height: 100%; color: white">
+                <li style="border-bottom: 1px solid #eee;">組織
+                    <ul class="dropdwn_menu" style="display: none ;color: white">
+                        <li><a href="#">A1</a></li>
+                        <li><a href="#">A2</a></li>
+                    </ul>
+                </li>
+                <li>打刻
+                    <ul class="dropdwn_menu">
+                        <li><a href="#">A1</a></li>
+                        <li><a href="#">A2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <div class="l-main-content">
             @yield('content')
         </div>
