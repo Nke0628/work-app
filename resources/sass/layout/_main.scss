@@ -3,13 +3,17 @@
 
     .l-main-menu{
         width: 15%;
+        @include mq() {
+            width: 0;
+        }
     }
 
     .l-main-content {
         flex: 1;
         padding: 3rem 0 0 3rem;
         background: $white;
-        height: 100vh;
+        overflow-y: scroll;
+        height: 100%;
         @include mq() {
             width: 100%;
         }

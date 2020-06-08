@@ -3,7 +3,7 @@
         <tr class="category-table__label">
             <th></th>
             <th class="js_category_master_item" data-column="id">ID</th>
-            <th class="js_category_master_item" data-column="category_name">カテゴリ</th>
+            <th class="js_category_master_item" data-column="category_name">勤怠区分名称</th>
             <th class="js_category_master_item" data-column="updated_at">更新日</th>
             <th>編集</th>
         </tr>

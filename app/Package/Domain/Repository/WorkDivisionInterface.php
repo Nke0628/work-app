@@ -25,6 +25,22 @@ interface WorkDivisionInterface
     public function findAll(array $requestOption=array()): WorkDivisionList;
 
     /**
+     * 条件付きで検索
+     *
+     * @param array $pSearchCondition
+     * @return int
+     */
+    public function fetchConditionCount( array $pSearchCondition ) :int;
+
+    /**
+     * 条件付きで検索
+     *
+     * @param array $pSearchCondition
+     * @return WorkDivisionList
+     */
+    public function fetchCondition( array $pSearchCondition ) :WorkDivisionList;
+
+    /**
      * 勤怠区分を登録
      *
      * @param WorkDivision $workDivision

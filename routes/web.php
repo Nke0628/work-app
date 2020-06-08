@@ -31,5 +31,7 @@ Route::get('/master/work_division', 'Master\WorkDivision\WorkDivisionController@
 Route::post('/master/work_division/ajax/submit', 'Master\WorkDivision\WorkDivisionController@registerWorkDivision');
 Route::post('/master/work_division/ajax/resubmit', 'Master\WorkDivision\WorkDivisionController@updateWorkDivision');
 Route::post('/master/work_division/ajax/delete', 'Master\WorkDivision\WorkDivisionController@deleteWorkDivision');
+Route::post('/master/work_division/ajax/upload', 'Master\WorkDivision\WorkDivisionController@getPreviewHtml');
+Route::post('/master/work_division/ajax/upload/save', 'Master\WorkDivision\WorkDivisionController@saveCsvData');
 
 

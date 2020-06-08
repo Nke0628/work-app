@@ -187,6 +187,55 @@ Common_Lib.prototype = {
             },
         });
     },
+
+    /**
+     * ファイル送信用Ajaxリクエスト
+     *
+     * @param {string} pUrl AjaxURL
+     * @param {FormData} pFormData フォームデータ
+     * @param {function} pSuccessCallback 通信成功時に実行する関数
+     * @param {function} pErrCallback 通信失敗時に実行する関数
+     * @returns Promise
+     */
+    FileRequest : function(pUrl, pFormData, pSuccessCallback, pErrCallback)
+    {
+        const aThis = this;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        return $.ajax({
+            type: 'POST',
+            url: pUrl,
+            data:  pFormData ,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function( pData, pStatus )
+            {
+                if ( typeof pSuccessCallback === 'function')
+                {
+                    pSuccessCallback( pData, pStatus );
+                }
+            },
+            error: function( pData, pStatus, pError )
+            {
+                if ( typeof pErrCallback === 'function' )
+                {
+                    pErrCallback( pData, pStatus, pError )
+                }
+                else
+                {
+                    console.log( pData, pStatus, pError );
+                    alert( aThis.AJAX_ERR_MSG );
+                }
+                return false;
+            },
+        });
+    },
 };
 
 $(function () {

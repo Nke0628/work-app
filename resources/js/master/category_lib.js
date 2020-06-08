@@ -9,6 +9,13 @@ WorkDivision_lib.prototype = {
     SEL_WORK_DIVISION_ID_INPUT_EDIT : '._js_work_division_id_input_edit',
     SEL_WORK_DIVISION_LIST : '._js_work_division_list',
     SEL_INPUT_TEST : '._js_input_test',
+    SEL_UPLOAD_CSV : '._js_work_division_upload_csv',
+    SEL_UPLOAD_CSV_PREVIEW_MODAL_CONTENT : '._js_work_division_upload_modal_content',
+    SEL_UPLOAD_WORK_DIVISION_ROW : '._js_upload_work_division_row',
+    SEL_UPLOAD_WORK_DIVISION_ID : '._js_upload_work_division_id',
+    SEL_UPLOAD_WORK_DIVISION_NAME : '._js_upload_work_division_name',
+
+    UPLOAD_PREVIEW_MODAL : '#upload-preview-modal',
 
     /**
      * 新規登録
@@ -117,6 +124,77 @@ WorkDivision_lib.prototype = {
                 }
                 aWorkDivisionList.html( pData );
                 Common_Lib.nowModal.fadeOut(Common_Lib.DISP_MODAL_SPEED);
+            });
+        if ( aAjaxObj )
+        {
+            Common_Lib.HideWait();
+        }
+    },
+
+    /**
+     * CSVアップロードプレビュー表示
+     *
+     * @param {object} pObj ボタンオブジェクト
+     */
+    CsvUpload: function( pObj)
+    {
+        const aUrl = this.AJAX_URL + 'upload',
+        formData = new FormData( $( this.SEL_UPLOAD_CSV ).get(0) ),
+        aThis = this;
+
+        Common_Lib.ShowWait();
+        const aAjaxObj = Common_Lib.FileRequest( aUrl, formData,
+            function ( pData )
+            {
+                if ( pData['error'] )
+                {
+                    alert(pData['error']);
+                    return;
+                }
+                $( aThis.SEL_UPLOAD_CSV_PREVIEW_MODAL_CONTENT ).html( pData );
+                Common_Lib.OpenModal( aThis.UPLOAD_PREVIEW_MODAL );
+            });
+        if ( aAjaxObj )
+        {
+            Common_Lib.HideWait();
+        }
+    },
+
+    /**
+     * CSVアップロード保存
+     *
+     * @param {object} pObj ボタンオブジェクト
+     */
+    CsvSave: function( pObj)
+    {
+        /* 上書き更新します。よろしいですか? */
+        if ( !confirm('\u4e0a\u66f8\u304d\u66f4\u65b0\u3057\u307e\u3059\u3002\u3088\u308d\u3057\u3044\u3067\u3059\u304b?') )
+        {
+            return;
+        }
+
+        const aThis = this,
+        aUrl = this.AJAX_URL + 'upload/save',
+        aData = [],
+        aRowObj = $( this.SEL_UPLOAD_WORK_DIVISION_ROW );
+
+        aRowObj.each(function (index, value) {
+            const aRow = {};
+            aRow['id'] = $(this).find( aThis.SEL_UPLOAD_WORK_DIVISION_ID ).val();
+            aRow['name'] = $(this).find( aThis.SEL_UPLOAD_WORK_DIVISION_NAME ).val();
+            aData.push(aRow);
+        });
+
+        Common_Lib.ShowWait();
+        const aAjaxObj = Common_Lib.Request( aUrl, aData,
+            function ( pData )
+            {
+                if ( pData['error'] )
+                {
+                    alert(pData['error']);
+                }
+                $( aThis.SEL_WORK_DIVISION_LIST ) .html( pData );
+                Common_Lib.HideModal( aThis.UPLOAD_PREVIEW_MODAL );
             });
         if ( aAjaxObj )
         {

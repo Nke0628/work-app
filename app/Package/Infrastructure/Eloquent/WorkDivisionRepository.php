@@ -12,6 +12,8 @@ use Carbon\Carbon;
 
 class WorkDivisionRepository implements WorkDivisionInterface
 {
+    const PAGE_LIMIT = 10;
+
     /**
      * 勤怠区分を取得
      *
@@ -42,6 +44,63 @@ class WorkDivisionRepository implements WorkDivisionInterface
     {
         $aWorkDivisionList = new WorkDivisionList();
         $aWorkDivisions = WorkDivisionElq::all();
+        if ( $aWorkDivisions )
+        {
+            foreach ( $aWorkDivisions as $aWorkDivision )
+            {
+                $aWorkDivisionList->add( new WorkDivision(
+                    WorkDivisionId::of( $aWorkDivision->id ),
+                    WorkDivisionName::of( $aWorkDivision->division_name ),
+                    new Carbon( $aWorkDivision->updated_at )
+                ));
+            }
+        }
+        return $aWorkDivisionList;
+    }
+
+    public function fetchConditionCount( array $pSearchCondition ): int
+    {
+        $query = WorkDivisionElq::query();
+
+        // 条件生成
+        if( $pSearchCondition['word'] )
+        {
+            $query->where('name', 'LIKE', $pSearchCondition['word']);
+        }
+
+        return  $query->count();
+    }
+
+    /**
+     * 検索取得
+     *
+     * @param array $pSearchCondition
+     * @return WorkDivisionList
+     */
+    public function fetchCondition( array $pSearchCondition ): WorkDivisionList
+    {
+        $query = WorkDivisionElq::query();
+
+        // 条件生成
+        if( $pSearchCondition['word'] )
+        {
+            $query->where('name', 'LIKE', $pSearchCondition['word']);
+        }
+
+        if ( $pSearchCondition['page_num'] )
+        {
+            $aOffset = ( $pSearchCondition['page_num'] )  -1 * self::PAGE_LIMIT;
+            $query->offset( $aOffset );
+            $query->limit( self::PAGE_LIMIT );
+        }
+
+        if ( $pSearchCondition[ 'sort'] && $pSearchCondition['order'] )
+        {
+            $query->orderBy( $pSearchCondition[ 'sort'], $pSearchCondition['order'] );
+        }
+
+        $aWorkDivisions = $query->get();
+        $aWorkDivisionList = new WorkDivisionList();
         if ( $aWorkDivisions )
         {
             foreach ( $aWorkDivisions as $aWorkDivision )
@@ -98,6 +157,29 @@ class WorkDivisionRepository implements WorkDivisionInterface
             );
         }
         return null;
+    }
+
+    /**
+     * 勤怠区分をUPSERTする
+     *
+     * @param WorkDivision $pWorkDivision
+     * @return bool 成功可否
+     */
+    public function upsert( WorkDivision $pWorkDivision ): bool
+    {
+        $aWorkDivisionModel = WorkDivisionElq::find( $pWorkDivision->getId()->getValue() );
+        if ( !$aWorkDivisionModel )
+        {
+            $aWorkDivisionModel = new WorkDivisionElq();
+            $aWorkDivisionModel->id = $pWorkDivision->getId()->getValue();
+         }
+        $aWorkDivisionModel->division_name = $pWorkDivision->getDivisionName()->getValue();
+        $aResult = $aWorkDivisionModel->save();
+        if ( $aResult )
+        {
+           return true;
+        }
+        return false;
     }
 
     /**
