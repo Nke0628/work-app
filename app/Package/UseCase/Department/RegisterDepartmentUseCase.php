@@ -3,11 +3,12 @@
 
 namespace App\Package\UseCase\Department;
 
-use App\Package\Domain\Department\RegisterDepartmentRequestInterface;
 use App\Package\Domain\Factory\DepartmentFactory;
 use App\Package\Domain\Factory\StaffFactory;
 use App\Package\Domain\Repository\DepartmentInterface;
 use App\Package\Domain\Repository\StaffRepositoryInterface;
+use App\Package\UseCase\Department\Dto\RegisterDepartmentOutput;
+use App\Package\UseCase\Department\Dto\RegisterDepartmentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -34,12 +35,11 @@ class RegisterDepartmentUseCase
     /**
      * 組織を登録する
      *
-     * @param RegisterDepartmentRequestInterface $pRequest
-     * @param string $userId
-     * @return bool
+     * @param RegisterDepartmentRequest $pRequest
+     * @return RegisterDepartmentOutput
      * @throws \Exception
      */
-    public function execute( RegisterDepartmentRequestInterface $pRequest, string $userId ): bool
+    public function execute( RegisterDepartmentRequest $pRequest ): RegisterDepartmentOutput
     {
         try
         {
@@ -53,10 +53,10 @@ class RegisterDepartmentUseCase
                 $pRequest->getEndWorkTime(),
                 $pRequest->getStartBreakTime(),
                 $pRequest->getEndBreakTime(),
-                $userId
+                $pRequest->getUserId()
             );
-            $aResult = $this->departmentRepository->save( $aDepartment );
-            if ( !$aResult )
+            $aCreatedDepartment = $this->departmentRepository->save( $aDepartment );
+            if ( !$aCreatedDepartment )
             {
                 throw new \Exception( '組織/勤怠設定の登録に失敗しました。' );
             }
@@ -68,8 +68,8 @@ class RegisterDepartmentUseCase
                 $aDepartment->getUserId()->getValue(),
                 $aDepartment->getDepartmentId()->getValue()
             );
-            $aResult = $this->staffRepository->save( $aStaff );
-            if ( !$aResult )
+            $aCreatedStaff = $this->staffRepository->save( $aStaff );
+            if ( !$aCreatedStaff )
             {
                 throw new \Exception( '組織/勤怠設定の登録に失敗しました。' );
             }
@@ -82,6 +82,13 @@ class RegisterDepartmentUseCase
             DB::rollBack();
             throw $e;
         }
-        return true;
+        return new RegisterDepartmentOutput(
+            $aDepartment->getDepartmentId()->getValue(),
+            $aDepartment->getName(),
+            $aDepartment->getAttendanceProperty()->getStartWorkTime()->getValue(),
+            $aDepartment->getAttendanceProperty()->getEndWorkTime()->getValue(),
+            $aDepartment->getAttendanceProperty()->getStartBreakTime()->getValue(),
+            $aDepartment->getAttendanceProperty()->getEndBreakTime()->getValue()
+        );
     }
 }

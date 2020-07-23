@@ -1,0 +1,112 @@
+.p-department
+{
+    .p-department-search-form
+    {
+        background: #f9f9f9;
+        border :#e8e8e8 1px solid;
+        border-radius: 4px;
+        padding: 10px;
+
+        .p-department-search-form-input-group
+        {
+            .p-department-search-form-input-group__input
+            {
+                height: 3.6rem;
+                border: 1px solid $darkgrey;
+                border-radius: 4px;
+            }
+
+            .p-department-search-form-input-group__btn
+            {
+                height: 3.6rem;
+            }
+        }
+
+        .p-department-search-form-header
+        {
+            display: flex;
+            justify-content: space-between;
+            @include mq() {
+                flex-direction: column;
+            }
+
+            .p-department-search-form-header__search-word
+            {
+                width: 70%;
+                box-sizing: border-box;
+                @include mq() {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                .p-department-search-form-input-group__input
+                {
+                    width: 70%;
+                }
+
+                .p-department-search-form-input-group__btn
+                {
+                    font-size: 1.6rem;
+                    box-sizing: border-box;
+                }
+            }
+
+            .p-department-search-form-header__option-btn
+            {
+                width: 30%;
+                box-sizing: border-box;
+                text-align: right;
+                @include mq() {
+                    width: 100%;
+                    text-align: left;
+                }
+
+                button
+                {
+                    height: 3.6rem;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        .p-department-search-option
+        {
+            .p-department-search-option-unit
+            {
+                width: 70%;
+                margin-bottom: 15px;
+                @include mq() {
+                    width: 100%;
+                }
+
+                .p-department-search-form-input-group__label
+                {
+                    font-weight: bold;
+                    width: 25%;
+                    @include mq() {
+                        width: 100%;
+                    }
+                }
+
+                .p-department-search-form-input-group__input
+                {
+                    width: 60%;
+                    @include mq() {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .p-department-search-option__search-btn
+            {
+                text-align: center;
+
+                button
+                {
+                    height: 3.6rem;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+}

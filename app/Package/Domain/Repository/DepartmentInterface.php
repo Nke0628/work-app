@@ -3,14 +3,19 @@
 namespace App\Package\Domain\Repository;
 
 use App\Package\Domain\Department\Department;
+use App\Package\UseCase\Department\Dto\SearchDepartmentRequest;
 
 interface DepartmentInterface
 {
     /**
-     * 組織・勤怠設定の登録
-     *
      * @param Department $pDepartment
-     * @return bool
+     * @return null | Department
      */
-    public function save( Department $pDepartment ): bool;
+    public function save( Department $pDepartment );
+
+    /**
+     * @param SearchDepartmentRequest $searchDepartmentRequest
+     * @return mixed
+     */
+    public function search( SearchDepartmentRequest $searchDepartmentRequest );
 }

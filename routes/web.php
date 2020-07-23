@@ -29,7 +29,7 @@ Route::post('/login', 'Auth\LoginController@login');
  */
 
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
-    Route::get('/department', 'Department\DepartmentController@showDepartments');
+    Route::get('/department', 'Department\SearchDepartmentController@searchDepartment');
     Route::get('/department/register', 'Department\DepartmentController@showRegisterDepartmentForm');
     Route::post('/department/register', 'Department\DepartmentController@registerDepartment');
 });

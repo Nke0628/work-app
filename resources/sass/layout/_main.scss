@@ -12,8 +12,6 @@
         flex: 1;
         padding: 3rem;
         background: $white;
-        overflow-y: scroll;
-        height: 100vh;
         @include mq() {
             width: 100%;
         }

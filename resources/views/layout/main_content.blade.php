@@ -50,7 +50,7 @@
             @yield('content')
         </div>
     </main>
-    <footer>
+    <footer style="height: 200px">
     </footer>
 </body>
 </html>

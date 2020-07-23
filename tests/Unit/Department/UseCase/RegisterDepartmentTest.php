@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Department\UseCase;
 
 use App\Package\Test\Department\InMemoryDepartmentRepository;
-use App\Package\Test\Department\InMemoryRegisterDepartmentFormRequest;
 use App\Package\Test\Staff\InMemoryStaffRepository;
+use App\Package\UseCase\Department\Dto\RegisterDepartmentOutput;
+use App\Package\UseCase\Department\Dto\RegisterDepartmentRequest;
 use App\Package\UseCase\Department\RegisterDepartmentUseCase;
 use Tests\TestCase;
 
@@ -29,9 +30,8 @@ class RegisterDepartmentTest extends TestCase
      */
     public function 基本動作テスト( $pExpected, $pValue )
     {
-        $aDummyUserId = 1;
-        $aResult = $this->registerDepartmentUseCase->execute( $pValue, $aDummyUserId );
-        $this->assertEquals( $pExpected, $aResult);
+        $aResult = $this->registerDepartmentUseCase->execute( $pValue );
+        $this->assertEquals( $pExpected->getDepartmentName(), $aResult->getDepartmentName());
     }
 
     /**
@@ -40,13 +40,12 @@ class RegisterDepartmentTest extends TestCase
      */
     public function 不適切な値が渡されると例外が発生すること( $pExpected, $pValue )
     {
-        $aDummyUserId = 1;
         $aUseCase = new RegisterDepartmentUseCase(
             new InMemoryDepartmentRepository(),
             new InMemoryStaffRepository()
         );
         $this->expectException($pExpected);
-        $aUseCase->execute( $pValue, $aDummyUserId );
+        $aUseCase->execute( $pValue );
     }
 
     /**
@@ -57,13 +56,21 @@ class RegisterDepartmentTest extends TestCase
     {
         return [
             [
-                true,
-                new InMemoryRegisterDepartmentFormRequest(
+                new RegisterDepartmentOutput(
                     'test',
-                    '2222',
+                '株式会社テスト',
+                    '0900',
                     '1730',
                     '1200',
                     '1300'
+                ),
+                new RegisterDepartmentRequest(
+                    '株式会社テスト',
+                    '0900',
+                    '1730',
+                    '1200',
+                    '1300',
+                    '1'
                 )
             ],
         ];
@@ -78,45 +85,49 @@ class RegisterDepartmentTest extends TestCase
             [
                 \Exception::class
                 ,
-                new InMemoryRegisterDepartmentFormRequest(
+                new RegisterDepartmentRequest(
                     'test',
                     '9999',
                     '1730',
                     '1200',
-                    '1300'
+                    '1300',
+                    '1'
                 )
             ],
             [
                 \Exception::class
                 ,
-                new InMemoryRegisterDepartmentFormRequest(
+                new RegisterDepartmentRequest(
                     'test',
                     '0900',
-                    '8888',
+                    '9999',
                     '1200',
-                    '1300'
+                    '1300',
+                    '1'
                 )
             ],
             [
                 \Exception::class
                 ,
-                new InMemoryRegisterDepartmentFormRequest(
+                new RegisterDepartmentRequest(
                     'test',
                     '0900',
                     '1730',
-                    '7777',
-                    '1300'
+                    '9999',
+                    '1300',
+                    '1'
                 )
             ],
             [
                 \Exception::class
                 ,
-                new InMemoryRegisterDepartmentFormRequest(
+                new RegisterDepartmentRequest(
                     'test',
                     '0900',
                     '1730',
                     '1200',
-                    '6666'
+                    '9999',
+                    '1'
                 )
             ]
         );
