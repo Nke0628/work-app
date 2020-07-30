@@ -31,17 +31,23 @@
     </header>
     <main class="l-main">
         <div class="l-main-menu">
-            <ul class="dropdwn" style="background: steelblue; height: 100%; color: white">
-                <li style="border-bottom: 1px solid #eee;">組織
-                    <ul class="dropdwn_menu" style="display: none ;color: white">
-                        <li><a href="#">A1</a></li>
-                        <li><a href="#">A2</a></li>
+            <ul class="l-drop-down-menu">
+                <li class="l-drop-down-menu__item"><i class="far fa-building"></i>組織
+                    <ul class="l-drop-down-menu-sub">
+                        <li class="l-drop-down-menu-sub__item"><a href="#">組織一覧</a></li>
+                        <li class="l-drop-down-menu-sub__item"><a href="#">組織登録</a></li>
                     </ul>
                 </li>
-                <li>打刻
-                    <ul class="dropdwn_menu">
-                        <li><a href="#">A1</a></li>
-                        <li><a href="#">A2</a></li>
+                <li class="l-drop-down-menu__item"><i class="far fa-clock"></i>打刻
+                    <ul class="l-drop-down-menu-sub">
+                        <li class="l-drop-down-menu-sub__item"><a href="#">打刻画面</a></li>
+                        <li class="l-drop-down-menu-sub__item"><a href="#">打刻一覧</a></li>
+                    </ul>
+                </li>
+                <li class="l-drop-down-menu__item"><i class="far fa-user"></i>スタッフ
+                    <ul class="l-drop-down-menu-sub">
+                        <li class="l-drop-down-menu-sub__item"><a href="#">スタッフ一覧</a></li>
+                        <li class="l-drop-down-menu-sub__item"><a href="#">スタッフ登録</a></li>
                     </ul>
                 </li>
             </ul>
