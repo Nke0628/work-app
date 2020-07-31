@@ -6,29 +6,13 @@ entity "ユーザ" as user {
   +id : int(10)
   --
   name : varchar(255)
-  *email : varchar(255)
+  email : varchar(255)
   email_verified_at : timestamp
   password : varchar(255)
   remember_token : varchar(100)
   role : tinyint
   delete_flag : tinyint
   created_at : timestamp
-  updated_at : timestamp
-}
-
-entity "勤怠" as attendance {
-  +id : int
-  --
-  #user_id : int [FK(user,id)]
-  *work_date : DATE
-  *work_division_id : int <<FK>>
-  attendance_time : DATETIME
-  departure_time : DATETIME
-  break_time : TIME
-  work_time : TIME
-  create_user_id :int
-  created_at : timestamp
-  update_user_id : int
   updated_at : timestamp
 }
 
@@ -50,7 +34,19 @@ entity "勤怠区分" as work_division {
   +id : int
   --
   division_name : varchar(255)
+  create_user_id : int
   created_at : timestamp
+  update_user_id : int
+  updated_at : timestamp
+}
+
+entity "打刻タイプ" as dakoku_type {
+  +id : int
+  --
+  type : varchar(255)
+  create_user_id : int
+  created_at : timestamp
+  update_user_id : int
   updated_at : timestamp
 }
 
@@ -66,7 +62,7 @@ entity "スタッフ" as staff {
   updated_at : timestamp
 }
 
-entity "組織" as department {
+entity "組織" as departments {
   +id : int
   --
   user_id : int <<FK>>
@@ -87,12 +83,49 @@ entity "権限" as role {
   updated_at : timestamp
 }
 
-user||--o{attendance
-user||--||staff
-user||--|{department
-user }o--||role
-department||--o{staff
-department||--||attendance_property
-work_division||--o{attendance
+entity "タイムカード" as timecards {
+  +id : int
+  --
+  staff_id : int
+  ymd : char(8)
+  create_user_id : int
+  created_at : timestamp
+  update_user_id : int
+  updated_at : timestamp
+}
 
+entity "日別打刻情報" as daily_dakoku {
+  +id : int
+  --
+  timecard_id : int
+  work_type : int
+  del_flg : tinyint
+  create_user_id : int
+  created_at : timestamp
+  update_user_id : int
+  updated_at : timestamp
+}
+
+entity "日別打刻情報" as dakoku_time {
+  +id : int
+  --
+  daily_dakoku_id : int
+  dakoku_type : int
+  del_flg : tinyint
+  time : datetime
+  create_user_id : int
+  created_at : timestamp
+  update_user_id : int
+  updated_at : timestamp
+}
+
+user||--|{departments
+user ||-l-||role
+departments ||--o{ staff
+departments ||-l-||attendance_property
+staff||--o{timecards
+timecards ||--o{daily_dakoku
+daily_dakoku ||-l-|| work_division
+daily_dakoku ||--o{ dakoku_time
+dakoku_time ||-l-|| dakoku_type
 @enduml

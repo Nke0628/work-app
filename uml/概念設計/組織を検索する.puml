@@ -1,0 +1,26 @@
+@startuml
+'Direction of diagram flow can be selected.
+left to right direction
+
+'ユースケース
+usecase 組織を検索する
+
+'アクター
+actor ユーザ
+
+'バウンダリ
+boundary 組織一覧画面
+
+'コントロール
+control 組織一覧を取得
+
+'エンティティ
+entity 組織
+
+'処理概要
+ユーザ -> 組織一覧画面 : アクセス
+組織一覧画面 -> 組織一覧を取得 :検索キーワード(初回は全て)
+組織一覧を取得 --> 組織
+組織一覧を取得 --> 組織一覧画面
+
+@enduml

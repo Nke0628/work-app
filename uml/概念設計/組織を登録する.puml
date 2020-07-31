@@ -2,18 +2,27 @@
 'Direction of diagram flow can be selected.
 left to right direction
 
+'ユースケース
 usecase 組織を登録する
 
+'アクター
 actor ユーザ
+
+'バウンダリ
 boundary 組織登録画面
+boundary 組織一覧画面
+
+'コントロール
 control 組織情報設定入力
 control 入力データ不正
+control 組織一覧を取得
+
+'エンティティ
 entity 組織登録
 entity 勤怠設定登録
 entity 自身をスタッフ登録
-control 組織一覧を取得
-boundary 組織一覧画面
 
+'処理概要
 ユーザ -> 組織登録画面 : アクセス
 組織登録画面 -> 組織情報設定入力
 組織情報設定入力 --> 入力データ不正
@@ -24,4 +33,5 @@ boundary 組織一覧画面
 自身をスタッフ登録 -> 組織一覧を取得
 組織一覧を取得 --> 組織一覧
 組織一覧を取得 -> 組織一覧画面
+
 @enduml
