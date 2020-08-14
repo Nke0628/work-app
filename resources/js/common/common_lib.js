@@ -25,12 +25,9 @@ Common_Lib.prototype = {
         this._SetSpinner();
         this._SetModalEvent();
         this._SetMultiOpenBootStrapModalConfig();
+        this._SetDropDownMenu();
+        this._SetToolTip();
 
-        $('[data-toggle="tooltip"]').tooltip();
-
-        $('.dropdwn li').click(function() {
-            $("ul:not(:animated)", this).slideToggle();
-        });
     },
 
     /**
@@ -47,9 +44,32 @@ Common_Lib.prototype = {
     },
 
     /**
+     * ドロップダウンメニュー初期設定
+     *
+     * @private
+     */
+    _SetDropDownMenu: function()
+    {
+        $('.l-drop-down-menu .l-drop-down-menu__item').click(function() {
+            $("ul:not(:animated)", this).slideToggle();
+        });
+    },
+
+    /**
+     * ツールチップ初期設定
+     *
+     * @private
+     */
+    _SetToolTip : function()
+    {
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+
+    /**
      * ローディング表示
      */
-    ShowWait : function () {
+    ShowWait : function ()
+    {
         $('.' + this.SEL_SPINNER_OVERLAY).fadeIn(this.DISP_LOADING_SPEED);
     },
 
