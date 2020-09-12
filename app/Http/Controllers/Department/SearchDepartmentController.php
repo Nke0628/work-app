@@ -23,7 +23,6 @@ class SearchDepartmentController extends Controller
      * 組織を検索する
      *
      * @param Request $pRequest
-     * @return ViewModel
      */
     public function searchDepartment( Request $pRequest )
     {
@@ -46,6 +45,7 @@ class SearchDepartmentController extends Controller
 
         $aResponse = $this->searchDepartmentUseCase->execute( $aRequest );
 
-        return ( new SearchDepartmentViewModel( $aResponse ) )->view( 'department.index' );
+//        return ( new SearchDepartmentViewModel( $aResponse ) )->view( 'department.index' );
+        return view( 'department.index', new SearchDepartmentViewModel( $aResponse) );
     }
 }

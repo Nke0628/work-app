@@ -10,8 +10,13 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ViewModel implements Arrayable, Responsable
+/**
+ * Class ViewModel
+ * @package App\Package\Presenter
+ */
+abstract class ViewModel implements Arrayable, Responsable
 {
+    /** @var string */
     protected $view;
 
     /**
@@ -45,5 +50,5 @@ class ViewModel implements Arrayable, Responsable
     /**
      * @inheritDoc
      */
-    public function toArray(){}
+    abstract public function toArray();
 }
