@@ -50,4 +50,9 @@ Route::post('/master/work_division/ajax/upload/save', 'Master\WorkDivision\WorkD
 Route::get('/csv', 'Csv\CsvController@showCsv');
 Route::post('/csv/upload', 'Csv\CsvController@uploadCsv');
 
+/**
+ * API
+ */
+Route::get('/routes', 'Api\RoutesController@test');
+
 
