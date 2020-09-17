@@ -3,8 +3,12 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -45,11 +49,18 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|Response
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($request->is('api/*'))
+        {
+            return $this->handleApiException( $request, $exception );
+        }
+        else
+        {
+            return parent::render( $request, $exception );
+        }
     }
 
     /**
@@ -123,5 +134,74 @@ class Handler extends ExceptionHandler
         }
 
         return parent::prepareResponse($request, $e);
+    }
+
+    /**
+     * API例外処理
+     *
+     * @param $request
+     * @param Exception $exception
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function handleApiException( $request, Exception $exception )
+    {
+        // Laravel Passportの認証エラーを変換
+        if ( $exception instanceof AuthenticationException )
+        {
+            $exception = new HttpException(401 );
+        }
+
+        return $this->customApiResponse( $exception );
+    }
+
+    /**
+     * エラーレスポンス生成
+     *
+     * @param \Exception $exception
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function customApiResponse( $exception )
+    {
+        if ( $exception instanceof HttpException )
+        {
+            $statusCode = $exception->getStatusCode();
+        }
+        else
+        {
+            $statusCode = 500;
+        }
+
+        $response = [];
+
+        switch ( $statusCode ) {
+            case 400:
+                $response['message'] = 'Bad Request';
+                break;
+            case 401:
+                $response['message'] = 'Unauthorized';
+                break;
+            case 403:
+                $response['message'] = 'Forbidden';
+                break;
+            case 404:
+                $response['message'] = 'Not Found';
+                break;
+            case 405:
+                $response['message'] = 'Method Not Allowed';
+                break;
+            default:
+                $response['message'] = 'Internal Server Error';
+                break;
+        }
+        $response['code'] = $statusCode;
+
+        if ( config('app.debug') ) {
+            $response['trace'] = $exception->getTrace();
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'result' =>  $response
+        ], $statusCode);
     }
 }

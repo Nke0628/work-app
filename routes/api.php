@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/test', 'Csv\CsvController@test')->middleware('client');
+// APIテスト
+Route::middleware( 'client' )->get('{version}/evaluate_routes', 'Api\EvaluateRouteController@getAllEvaluateRoutes');

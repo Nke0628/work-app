@@ -13,8 +13,17 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
 
-class RoutesController extends Controller
+class EvaluateRouteController extends Controller
 {
+    public function getAllEvaluateRoutes()
+    {
+        return response()->json(['test' => 'OK']);
+    }
+
+
+
+
+
     public function test()
     {
         $test['result'] = [];
