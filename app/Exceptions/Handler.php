@@ -49,13 +49,14 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response|Response
+     * @return \Illuminate\Http\Response|Response|ApiExceptionResponse
      */
     public function render($request, Exception $exception)
     {
         if ($request->is('api/*'))
         {
-            return $this->handleApiException( $request, $exception );
+//            return $this->handleApiException( $request, $exception );
+            return new ApiExceptionResponse( $exception );
         }
         else
         {

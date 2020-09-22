@@ -17,7 +17,32 @@ class EvaluateRouteController extends Controller
 {
     public function getAllEvaluateRoutes()
     {
-        return response()->json(['test' => 'OK']);
+        $test = [];
+        $test[] =
+            [
+                'personal_id' => 'S1000',
+                'sky_id' => '1000',
+                'stage1' => [
+                    [
+                        'personal_id' => 'S1000',
+                        'sky_id' => '1000'
+                    ],
+                    [
+                        'personal_id' => 'S1000',
+                        'sky_id' => '1000'
+                    ],
+                ]
+            ];
+
+        $test[] =  [
+                'personal_id' => 'S1000',
+                'sky_id' => '1000',
+                'stage1' => [
+                    'personal_id' => 'S1000',
+                    'sky_id' => '1000'
+                ]
+            ];
+        return response()->json($test);
     }
 
 
