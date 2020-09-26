@@ -4,16 +4,28 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Package\Presenter\Department\SearchDepartmentViewModel;
-use App\Package\Presenter\ViewModel;
 use App\Package\UseCase\Department\Dto\SearchDepartmentRequest;
 use App\Package\UseCase\Department\SearchDepartmentUseCase;
 use Illuminate\Http\Request;
 
 class SearchDepartmentController extends Controller
 {
+    private const DEFAULT_SEARCH_CONDITION = [
+        'search_query' => '',
+        'department_name' => '',
+        'start_work_time' => '',
+        'end_work_time' => '',
+        'start_break_time' => '',
+        'end_break_time' => ''
+    ];
+
     /** @var SearchDepartmentUseCase */
     private $searchDepartmentUseCase;
 
+    /**
+     * SearchDepartmentController constructor.
+     * @param SearchDepartmentUseCase $searchDepartmentUseCase
+     */
     public function __construct( SearchDepartmentUseCase $searchDepartmentUseCase )
     {
         $this->searchDepartmentUseCase = $searchDepartmentUseCase;
@@ -23,29 +35,19 @@ class SearchDepartmentController extends Controller
      * 組織を検索する
      *
      * @param Request $pRequest
-     * @return ViewModel
+     * @return SearchDepartmentViewModel
      */
     public function searchDepartment( Request $pRequest )
     {
-        $aSearchCondition = array();
-        $aSearchCondition['search_query'] = $pRequest->input( 'search_query' ) ?? '';
-        $aSearchCondition['department_name'] = $pRequest->input( 'department_name' ) ?? '';
-        $aSearchCondition['start_work_time'] = $pRequest->input( 'start_work_time' ) ?? '';
-        $aSearchCondition['end_work_time'] = $pRequest->input( 'end_work_time' ) ?? '';
-        $aSearchCondition['start_break_time'] = $pRequest->input( 'start_break_time' ) ?? '';
-        $aSearchCondition['end_break_time'] = $pRequest->input( 'end_break_time' ) ?? '';
-
         $aRequest = new SearchDepartmentRequest(
-            $aSearchCondition['search_query'],
-            $aSearchCondition['department_name'],
-            $aSearchCondition['start_work_time'],
-            $aSearchCondition['end_work_time'],
-            $aSearchCondition['start_break_time'],
-            $aSearchCondition['end_break_time']
+            $pRequest->input( 'search_query' ) ?? self::DEFAULT_SEARCH_CONDITION['search_query'],
+            $pRequest->input( 'department_name' ) ?? self::DEFAULT_SEARCH_CONDITION['department_name'],
+            $pRequest->input( 'start_work_time' ) ?? self::DEFAULT_SEARCH_CONDITION['start_work_time'],
+            $pRequest->input( 'end_work_time' ) ?? self::DEFAULT_SEARCH_CONDITION['end_work_time'],
+            $pRequest->input( 'start_break_time' ) ?? self::DEFAULT_SEARCH_CONDITION['start_break_time'],
+            $pRequest->input( 'end_break_time' ) ?? self::DEFAULT_SEARCH_CONDITION['end_break_time']
         );
 
-        $aResponse = $this->searchDepartmentUseCase->execute( $aRequest );
-
-        return ( new SearchDepartmentViewModel( $aResponse ) )->view( 'department.index' );
+        return $this->searchDepartmentUseCase->execute( $aRequest );
     }
 }

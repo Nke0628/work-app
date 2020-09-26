@@ -4,7 +4,7 @@
 namespace App\Package\UseCase\Department;
 
 use App\Package\Domain\Repository\DepartmentInterface;
-use App\Package\UseCase\Department\Dto\SearchDepartmentOutputList;
+use App\Package\Presenter\Department\SearchDepartmentViewModel;
 use App\Package\UseCase\Department\Dto\SearchDepartmentRequest;
 
 class SearchDepartmentUseCase
@@ -25,13 +25,15 @@ class SearchDepartmentUseCase
      * 組織を検索する
      *
      * @param SearchDepartmentRequest $pRequest
-     * @return SearchDepartmentOutputList
+     * @return SearchDepartmentViewModel
      */
-    public function execute( SearchDepartmentRequest $pRequest ): SearchDepartmentOutputList
+    public function execute( SearchDepartmentRequest $pRequest ): SearchDepartmentViewModel
     {
         /**
          * Step1.組織を検索する
          */
-        return $this->departmentRepository->search( $pRequest );
+        return new SearchDepartmentViewModel(
+            $this->departmentRepository->search( $pRequest )
+        );
     }
 }

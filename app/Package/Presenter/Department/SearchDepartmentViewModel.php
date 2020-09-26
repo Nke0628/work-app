@@ -25,6 +25,7 @@ class SearchDepartmentViewModel extends ViewModel
     public function __construct( SearchDepartmentOutputList $searchDepartmentOutputList )
     {
         $this->searchDepartmentOutputList = $searchDepartmentOutputList;
+        $this->view('department.index');
     }
 
     /**
