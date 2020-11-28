@@ -14,18 +14,33 @@ use Symfony\Component\HttpFoundation\Response;
  * Class ViewModel
  * @package App\Package\Presenter
  */
-class ViewModel implements Arrayable, Responsable
+abstract class ViewModel implements Arrayable, Responsable
 {
+    /**
+     * @var string
+     */
     protected $view;
 
     /**
-     * @param string $view
-     * @return ViewModel
+     * @var ViewModel[]
      */
-    public function view(string $view): ViewModel
+    protected $viewModels;
+
+    /**
+     * @param string $view
+     * @return void
+     */
+    public function view(string $view): void
     {
         $this->view = $view;
-        return $this;
+    }
+
+    /**
+     * @param ViewModel $viewModel
+     */
+    public function addViewModel( ViewModel $viewModel ): void
+    {
+        $this->viewModels[] = $viewModel;
     }
 
     /**
@@ -34,6 +49,10 @@ class ViewModel implements Arrayable, Responsable
      */
     public function render(): string
     {
+        if ( is_null( $this->view ) ) {
+            throw new \RuntimeException( 'insufficient view configuration' );
+        }
+
         return view( $this->view, $this )->render();
     }
 
@@ -43,7 +62,24 @@ class ViewModel implements Arrayable, Responsable
      */
     public function toResponse( $request )
     {
-        return response()->view( $this->view, $this );
+        $tmpParams = [];
+        if ( !empty( $this->viewModels ) ){
+            foreach ( $this->viewModels as $viewModel ){
+                $tmpParams = array_merge( $tmpParams, $viewModel->toArray() );
+            }
+        }
+
+        $params = array_merge( $tmpParams, $this->toArray());
+
+        return response()->view( $this->view, $params );
+    }
+
+    /**
+     * @return Response
+     */
+    public function toJson( ): Response
+    {
+        return response()->json( $this->toArray() );
     }
 
     /**

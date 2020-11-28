@@ -43,4 +43,9 @@ Route::post('/master/work_division/ajax/delete', 'Master\WorkDivision\WorkDivisi
 Route::post('/master/work_division/ajax/upload', 'Master\WorkDivision\WorkDivisionController@getPreviewHtml');
 Route::post('/master/work_division/ajax/upload/save', 'Master\WorkDivision\WorkDivisionController@saveCsvData');
 
+/**
+ * viewModelテスト
+ */
+Route::get('/viewmodel', 'ViewModel\SampleController@test');
+
 
