@@ -19,12 +19,7 @@ abstract class ViewModel implements Arrayable, Responsable
     /**
      * @var string
      */
-    protected $view;
-
-    /**
-     * @var ViewModel[]
-     */
-    protected $viewModels;
+    protected $view = '';
 
     /**
      * @param string $view
@@ -36,21 +31,13 @@ abstract class ViewModel implements Arrayable, Responsable
     }
 
     /**
-     * @param ViewModel $viewModel
-     */
-    public function addViewModel( ViewModel $viewModel ): void
-    {
-        $this->viewModels[] = $viewModel;
-    }
-
-    /**
      * @return string
      * @throws \Throwable
      */
     public function render(): string
     {
-        if ( is_null( $this->view ) ) {
-            throw new \RuntimeException( 'insufficient view configuration' );
+        if ( !$this->view ) {
+            throw new \RuntimeException( 'view configuration is not setting' );
         }
 
         return view( $this->view, $this )->render();
@@ -62,16 +49,11 @@ abstract class ViewModel implements Arrayable, Responsable
      */
     public function toResponse( $request )
     {
-        $tmpParams = [];
-        if ( !empty( $this->viewModels ) ){
-            foreach ( $this->viewModels as $viewModel ){
-                $tmpParams = array_merge( $tmpParams, $viewModel->toArray() );
-            }
+        if ( !$this->view ) {
+            throw new \RuntimeException( 'view configuration is not setting' );
         }
 
-        $params = array_merge( $tmpParams, $this->toArray());
-
-        return response()->view( $this->view, $params );
+        return response()->view( $this->view, $this );
     }
 
     /**
@@ -79,11 +61,11 @@ abstract class ViewModel implements Arrayable, Responsable
      */
     public function toJson( ): Response
     {
-        return response()->json( $this->toArray() );
+        return response()->json( $this );
     }
 
     /**
-     * @inheritDoc
+     * @return array
      */
-    public function toArray(){}
+    public abstract function toArray(): array;
 }

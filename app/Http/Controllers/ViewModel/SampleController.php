@@ -10,6 +10,6 @@ class SampleController
 {
     public function test()
     {
-        return (new ComponentAllViewModel());
+        return new ComponentAllViewModel();
     }
 }
