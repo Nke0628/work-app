@@ -43,4 +43,11 @@ Route::post('/master/work_division/ajax/delete', 'Master\WorkDivision\WorkDivisi
 Route::post('/master/work_division/ajax/upload', 'Master\WorkDivision\WorkDivisionController@getPreviewHtml');
 Route::post('/master/work_division/ajax/upload/save', 'Master\WorkDivision\WorkDivisionController@saveCsvData');
 
+/**
+ * 役職申請
+ */
+Route::get('/position_change_apply', 'PositionChangeApply\PositionChangeApplyController@showPositionChangeApply');
+Route::post('/position_change_apply/register', 'PositionChangeApply\PositionChangeApplyController@registerPositionChangeApply');
+Route::get('/position_change_apply/remand', 'PositionChangeApply\PositionChangeApplyController@remandPositionChangeApply');
+
 
