@@ -43,4 +43,8 @@ Route::post('/master/work_division/ajax/delete', 'Master\WorkDivision\WorkDivisi
 Route::post('/master/work_division/ajax/upload', 'Master\WorkDivision\WorkDivisionController@getPreviewHtml');
 Route::post('/master/work_division/ajax/upload/save', 'Master\WorkDivision\WorkDivisionController@saveCsvData');
 
+/**
+ * タブ
+ */
+Route::get('/tab', 'Tab\TabController@index');
 
