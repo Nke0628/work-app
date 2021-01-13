@@ -1,0 +1,74 @@
+@startuml
+
+actor 管理職 as manager
+actor 評価者 as boss
+
+package "人事考課システム"{
+
+'--画面--
+boundary URL発行ボタン as button_publish_url #skyblue
+boundary URL発行確認ダイアログ as dialog_publish_url #skyblue
+boundary エラーメッセージ as error #red
+boundary エラーメッセージ as error2 #red
+boundary エラーメッセージ as error3 #red
+boundary URL発行画面 as disp_url #skyblue
+
+'--コントロール--
+control すり合わせ種類チェック  as check_type_suriawase
+control すり合わせ存在チェック as check_exist_suriawase
+control すり合わせ無効化チェック as check_valid_suriawase
+control すり合わせ種類チェック  as check_type_suriawase2
+control 権限チェック as check_authority
+control URL発行 as publish_manager_utl
+control 評価対象者取得 as get_target
+control URL発行 as publish_boss_utl
+control 発行済みURL存在チェック as check_exist_url
+control 既存URL削除 as delete_url
+control URL保存as save_url
+
+'--エンティティ--
+entity すり合わせ設定 as suriawase_config #pink
+entity すり合わせ設定 as suriawase_config2 #pink
+entity すり合わせ管理者 as suriawase_authorizer #pink
+entity 評価対象者 as target #pink
+entity すり合わせレベルURL as suriawase_level_url #pink
+
+
+boss -down-> button_publish_url
+manager -down-> button_publish_url
+button_publish_url -down-> check_type_suriawase
+note left : フロント側の処理
+check_type_suriawase -down-> dialog_publish_url:評価者すり合わせ
+note left : 「発行済みURLがある場合、そのURLは使用できなくなります。\n　URLを発行してもよろしいですか?」
+check_type_suriawase -down-> check_exist_suriawase:管理職すり合わせ
+dialog_publish_url -down-> check_exist_suriawase
+check_exist_suriawase -left-> error:No
+check_exist_suriawase -down-> check_valid_suriawase:Yes
+check_valid_suriawase -left-> error2:No
+check_valid_suriawase -down-> check_authority:Yes
+note left : すり合わせ管理者かどうか or \n作成者かどうか
+check_authority -left-> error3:No
+check_authority -down-> check_type_suriawase2
+check_type_suriawase2 -down-> publish_manager_utl:管理職すり合わせ
+note left : すり合わせ設定IDをベースとした通常通りのURL
+check_type_suriawase2 -down-> check_exist_url:評価者すり合わせ
+check_exist_url -down-> get_target:なし
+check_exist_url -down-> delete_url:あり
+delete_url -down-> get_target
+get_target -down-> publish_boss_utl
+note left : 取得した評価対象者の役職レベルでdistinctする
+publish_boss_utl -down-> save_url
+publish_manager_utl -down-> disp_url
+save_url -down-> disp_url
+
+
+check_valid_suriawase -right-> suriawase_config
+check_exist_suriawase -right-> suriawase_config
+check_authority -right-> suriawase_authorizer
+check_authority -right-> suriawase_config2
+get_target -right-> target
+save_url -right-> suriawase_level_url
+
+}
+
+@enduml

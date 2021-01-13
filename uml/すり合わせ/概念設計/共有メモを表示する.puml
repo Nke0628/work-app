@@ -1,0 +1,63 @@
+@startuml
+
+actor 管理職 as manager
+actor 評価者 as boss
+
+package "人事考課システム"{
+
+'--画面--
+boundary 対象一覧画面as suriawase_target_list #skyblue
+boundary 共有メモボタン as button_memo #skyblue
+boundary エラーメッセージ as error #red
+boundary エラーメッセージ as error2 #red
+boundary エラーメッセージ as error3 #red
+boundary エラーメッセージ as error4 #red
+boundary 共有メモ更新画面 as edit_share_memo #skyblue
+boundary 共有メモ閲覧画面 as read_share_memo #skyblue
+
+'--コントロール--
+control すり合わせ存在チェック as check_exist_suriawase
+control すり合わせ無効化チェック as check_valid_suriawase
+control すり合わせ参加者チェック as check_participant
+control 役職レベルチェック as check_position_level
+control 更新権限チェック as check_authority
+control 共有メモ情報取得 as get_share_memo
+
+'--エンティティ--
+entity すり合わせ設定 as suriawase_config #pink
+entity すり合わせ設定 as suriawase_config2 #pink
+entity すり合わせ参加者 as suriawase_participant #pink
+entity すり合わせ管理者 as suriawase_authorizer #pink
+entity 社員情報 as human_resource #pink
+entity 共有メモ as share_memo #pink
+
+
+boss -down-> suriawase_target_list
+manager -down-> suriawase_target_list
+suriawase_target_list -down-> button_memo
+button_memo -down-> check_exist_suriawase
+check_exist_suriawase -left-> error:No
+check_exist_suriawase -down-> check_valid_suriawase:Yes
+check_valid_suriawase -left-> error2:No
+check_valid_suriawase -down-> check_position_level:Yes
+note left : 対象が自身より下位役職かどうか
+check_position_level -left-> error3:No
+check_position_level -down-> get_share_memo:yes
+get_share_memo -down-> check_authority:Yes
+note left : すり合わせ管理者かどうか or \n作成者かどうか
+check_authority -down-> check_participant:No
+check_authority -down-> edit_share_memo:Yes
+check_participant -down-> error4:No
+check_participant -down-> read_share_memo:Yes
+
+check_valid_suriawase -right->suriawase_config
+check_exist_suriawase -right->suriawase_config
+check_participant -right-> suriawase_participant
+check_position_level-right-> human_resource
+check_authority -right->suriawase_authorizer
+check_authority -right->suriawase_config2
+get_share_memo -right-> share_memo
+
+}
+
+@enduml

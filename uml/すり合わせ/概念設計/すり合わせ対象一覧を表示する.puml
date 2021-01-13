@@ -1,0 +1,56 @@
+@startuml
+
+actor 管理職 as manager
+actor 評価者 as boss
+
+package "人事考課システム"{
+
+'--画面--
+boundary すり合わせ開始 as start_suriawase #skyblue
+boundary エラー画面 as error #red
+boundary エラー画面 as error2 #red
+boundary エラー画面 as error3 #red
+boundary 対象一覧画面 as target_list #skyblue
+
+'--コントロール--
+control すり合わせ種類チェック as check_suriawse_type
+control 役職層選択 as select_position
+control すり合わせ存在チェック as check_exist_suriawase
+control すり合わせ無効化チェック as check_valid_suriawase
+control 権限チェック as check_authority
+control すり合わせ会議情報取得 as get_suriawase_meeting
+
+'--エンティティ--
+entity すり合わせ設定 as suriawase_config #pink
+entity すり合わせ参加者 as suriawase_participant #pink
+entity すり合わせ会議タブ as suriawase_meeting_tab #pink
+entity すり合わせ会議項目 as suriawase_meeting_item #pink
+entity すり合わせ会議値 as suriawase_meeting_value #pink
+
+
+boss -down-> start_suriawase
+manager -down-> start_suriawase
+start_suriawase -down-> check_suriawse_type
+check_suriawse_type -down-> select_position:評価者すり合わせ
+check_suriawse_type -down-> check_exist_suriawase:管理職すり合わせ
+select_position -down-> check_exist_suriawase
+check_exist_suriawase -left-> error:No
+check_exist_suriawase -down-> check_valid_suriawase:Yes
+check_valid_suriawase -left-> error3:No
+check_valid_suriawase -down-> check_authority:Yes
+note left : すり合わせ参加者かどうか
+check_authority -left-> error2:No
+check_authority -down->get_suriawase_meeting:Yes
+note left: 自身の役職より下位役職\n評価者すり合わせの場合は選択した役職
+get_suriawase_meeting -down->target_list
+
+check_valid_suriawase -right->suriawase_config
+check_exist_suriawase -right->suriawase_config
+check_authority -right->suriawase_participant
+get_suriawase_meeting -right-> suriawase_meeting_tab
+get_suriawase_meeting -right-> suriawase_meeting_item
+get_suriawase_meeting -right-> suriawase_meeting_value
+
+}
+
+@enduml

@@ -14,6 +14,16 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .p-tab-content {
+            padding: 30px;
+        }
+
+        .nav-tabs .nav-link.active, .nav-pills .show > .nav-link {
+            color: black;
+            background-color: #f5f5f5;
+        }
+    </style>
 
 </head>
 <body>

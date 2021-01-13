@@ -1,0 +1,67 @@
+@startuml
+
+actor 管理職 as manager
+actor 評価者 as boss
+
+package "人事考課システム"{
+
+'--画面--
+boundary 共有メモ更新ボタン as button_memo #skyblue
+boundary エラーメッセージ as error #red
+boundary エラーメッセージ as error2 #red
+boundary エラーメッセージ as error3 #red
+boundary エラーメッセージ as error4 #red
+boundary エラーメッセージ as error5 #red
+boundary 共有メモ更新メッセージ as message_share_memo #skyblue
+
+'--コントロール--
+control すり合わせ存在チェック as check_exist_suriawase
+control すり合わせ無効化チェック as check_valid_suriawase
+control 役職レベルチェック as check_position_level
+control 権限チェック as check_authority
+control 共有メモ情報取得 as get_share_memo
+control バリデーション開始 as start_validation
+control バージョンチェック as check_version
+control 値チェック as check_value
+control 共有メモ更新 as update_share_memo
+
+'--エンティティ--
+entity すり合わせ設定 as suriawase_config #pink
+entity すり合わせ設定 as suriawase_config2 #pink
+entity すり合わせ管理者 as suriawase_authorizer #pink
+entity 共有メモ as share_memo #pink
+entity 共有メモ as share_memo2 #pink
+
+
+boss -down-> button_memo
+manager -down-> button_memo
+button_memo -down-> check_exist_suriawase
+check_exist_suriawase -left-> error:No
+check_exist_suriawase -down-> check_valid_suriawase:Yes
+check_valid_suriawase -left-> error2:No
+check_valid_suriawase -down-> check_authority:Yes
+note left : すり合わせ管理者かどうか or \n作成者かどうか
+check_authority -left-> error3:No
+check_authority -down-> check_position_level
+note left : 対象が自身より下位役職かどうか
+check_position_level -left-> error4:No
+check_position_level -down-> get_share_memo:Yes
+get_share_memo -down-> start_validation
+start_validation -down-> check_version
+note left : 取得した共有メモ情報の更新日時が\nPOSTされた更新日時以前かどうか
+check_version -left-> error5:No
+check_version -down-> check_value:yes
+check_value -left-> error5:No
+check_value -down->update_share_memo:yes
+update_share_memo -down-> message_share_memo
+
+check_valid_suriawase -right->suriawase_config
+check_exist_suriawase -right->suriawase_config
+check_authority -right->suriawase_authorizer
+check_authority -right->suriawase_config2
+get_share_memo -right-> share_memo
+update_share_memo -right-> share_memo2
+
+}
+
+@enduml
