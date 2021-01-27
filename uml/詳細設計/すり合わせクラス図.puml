@@ -34,6 +34,7 @@ package 管理者集約 {
     class 管理者リスト {
         -すり合わせ設定ID
         +存在するか():bool
+        +追加済みかどうか(int 社員ID):bool
         +作成者かどうか():bool
         +管理者かどうか(LoginuUesrInfo):bool
         +追加(参加者、すり合わせ設定):void
