@@ -48,3 +48,8 @@ Route::post('/master/work_division/ajax/upload/save', 'Master\WorkDivision\WorkD
  */
 Route::get('/tab', 'Tab\TabController@index');
 
+/**
+ * すり合わせ管理者
+ *
+ */
+Route::get('/suriawase/administrator/add', 'Suriawase\AddSuriawseAdministratorController@index');
