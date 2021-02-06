@@ -14,18 +14,20 @@ use Symfony\Component\HttpFoundation\Response;
  * Class ViewModel
  * @package App\Package\Presenter
  */
-class ViewModel implements Arrayable, Responsable
+abstract class ViewModel implements Arrayable, Responsable
 {
-    protected $view;
+    /**
+     * @var string
+     */
+    protected $view = '';
 
     /**
      * @param string $view
-     * @return ViewModel
+     * @return void
      */
-    public function view(string $view): ViewModel
+    public function view(string $view): void
     {
         $this->view = $view;
-        return $this;
     }
 
     /**
@@ -34,6 +36,10 @@ class ViewModel implements Arrayable, Responsable
      */
     public function render(): string
     {
+        if ( !$this->view ) {
+            throw new \RuntimeException( 'view configuration is not setting' );
+        }
+
         return view( $this->view, $this )->render();
     }
 
@@ -43,11 +49,23 @@ class ViewModel implements Arrayable, Responsable
      */
     public function toResponse( $request )
     {
+        if ( !$this->view ) {
+            throw new \RuntimeException( 'view configuration is not setting' );
+        }
+
         return response()->view( $this->view, $this );
     }
 
     /**
-     * @inheritDoc
+     * @return Response
      */
-    public function toArray(){}
+    public function toJson( ): Response
+    {
+        return response()->json( $this );
+    }
+
+    /**
+     * @return array
+     */
+    public abstract function toArray(): array;
 }
