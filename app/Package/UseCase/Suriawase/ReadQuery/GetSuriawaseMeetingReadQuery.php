@@ -47,7 +47,7 @@ class GetSuriawaseMeetingReadQuery
             ->join('meeting_items','meeting_items.suriawase_item_id','=','meeting_values.suriawase_item_id')
             ->join('meeting_tabs','meeting_tabs.suriawase_tab_id','=','meeting_items.suriawase_tab_id')
             ->where('meeting_values.suriawase_config_id',1)
-            ->orderByRaw('personal_id,item_no')
+            ->orderByRaw('personal_id,tab_no,item_no')
             ->get();
         $meetingValueDtoList = [];
         foreach ( $meetingValueModels as $valueModel ) {

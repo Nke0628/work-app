@@ -1,0 +1,32 @@
+/**
+すり合わせ会議
+ */
+
+.p-jinji-suriawase-meeting{
+
+    .search-section{
+        margin-bottom: 15px;
+
+        .search-section__title{
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .search-section__plus-icon{
+            cursor: pointer;
+        }
+
+        .search-section__template{
+            display: none;
+        }
+
+        .search-section__select-box{
+            height: 25px;
+            margin-right: 5px
+        }
+
+        .search-section__condition_group{
+            margin-bottom: 5px;
+        }
+    }
+}
